@@ -55,7 +55,7 @@ void CMFCBreadFactoryView::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
 	GetParentFrame()->RecalcLayout();
-	ResizeParentToFit();
+	//ResizeParentToFit();
 
 }
 
