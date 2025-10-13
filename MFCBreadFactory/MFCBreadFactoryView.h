@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "MFCBreadFactoryDoc.h"
 
 class CMFCBreadFactoryView : public CFormView
 {
