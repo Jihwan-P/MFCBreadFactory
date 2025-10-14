@@ -93,7 +93,9 @@ BOOL CMFCBreadFactoryApp::InitInstance()
 		return FALSE;
 
 	// 창 하나만 초기화되었으므로 이를 표시하고 업데이트합니다.
-	m_pMainWnd->ShowWindow(SW_SHOW);
+	//m_pMainWnd->ShowWindow(SW_SHOW);
+	// 창 크기를 최대화 상태로 실행
+	m_pMainWnd->ShowWindow(SW_SHOWMAXIMIZED);
 	m_pMainWnd->UpdateWindow();
 	return TRUE;
 }
