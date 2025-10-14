@@ -70,11 +70,11 @@ BOOL CMFCBreadFactoryApp::InitInstance()
 
 	// 애플리케이션의 문서 템플릿을 등록합니다.  문서 템플릿은
 	//  문서, 프레임 창 및 뷰 사이의 연결 역할을 합니다.
-	CSingleDocTemplate* pDocTemplate;
-	pDocTemplate = new CSingleDocTemplate(
+	CMultiDocTemplate* pDocTemplate;
+	pDocTemplate = new CMultiDocTemplate(
 		IDR_MAINFRAME,
 		RUNTIME_CLASS(CMFCBreadFactoryDoc),
-		RUNTIME_CLASS(CMainFrame),       // 주 SDI 프레임 창입니다.
+		RUNTIME_CLASS(CMDIChildWnd),       // MDI 자식 프레임입니다.
 		RUNTIME_CLASS(CMFCBreadFactoryView));
 	if (!pDocTemplate)
 		return FALSE;
@@ -86,13 +86,16 @@ BOOL CMFCBreadFactoryApp::InitInstance()
 	ParseCommandLine(cmdInfo);
 
 
-
+	// MDI 애플리케이션은 InitInstance에서 ProcessShellCommand를 호출하기 전에
+	// 메인 MDI 프레임 윈도우를 생성하지 않습니다.
+	// m_pMainWnd는 ProcessShellCommand 이후에 유효해집니다.
+	// 
 	// 명령줄에 지정된 명령을 디스패치합니다.
 	// 응용 프로그램이 /RegServer, /Register, /Unregserver 또는 /Unregister로 시작된 경우 FALSE를 반환합니다.
 	if (!ProcessShellCommand(cmdInfo))
 		return FALSE;
 
-	// 창 하나만 초기화되었으므로 이를 표시하고 업데이트합니다.
+	// MDI는 일반적으로 자식 창을 생성하지 않고 메인 창만 표시합니다.
 	//m_pMainWnd->ShowWindow(SW_SHOW);
 	// 창 크기를 최대화 상태로 실행
 	m_pMainWnd->ShowWindow(SW_SHOWMAXIMIZED);
