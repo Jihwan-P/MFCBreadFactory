@@ -4,7 +4,7 @@
 
 #pragma once
 
-class CMainFrame : public CFrameWnd
+class CMainFrame : public CFrameWnd // SDI 구조
 {
 	
 protected: // serialization에서만 만들어집니다.

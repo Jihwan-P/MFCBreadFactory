@@ -39,8 +39,23 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	// TODO: CREATESTRUCT cs를 수정하여 여기에서
 	//  Window 클래스 또는 스타일을 수정합니다.
 
-	cs.style = WS_OVERLAPPED | WS_CAPTION | FWS_ADDTOTITLE
-		 | WS_THICKFRAME;
+	// 창 크기 고정 (1920x1080)
+	cs.cx = 1920;
+	cs.cy = 1030;
+
+	// 창 위치 지정 (0,0)
+	cs.x = 0;
+	cs.y = 5;
+
+	// 창 스타일 지정 (타이틀바, 최대화/최소화 버튼, 시스템 메뉴-닫기 포함)
+	cs.style =
+		FWS_ADDTOTITLE |
+		WS_OVERLAPPED |
+		WS_CAPTION |
+		WS_MAXIMIZEBOX |
+		WS_MINIMIZEBOX |
+		WS_SYSMENU |
+		WS_MAXIMIZE;
 
 	return TRUE;
 }

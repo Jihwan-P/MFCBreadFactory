@@ -55,7 +55,8 @@ void CMFCBreadFactoryView::OnInitialUpdate()
 {
 	CFormView::OnInitialUpdate();
 	GetParentFrame()->RecalcLayout();
-	ResizeParentToFit();
+	// 자동 크기 조정을 비활성화해야 원하는 창 크기를 얻을 수 있습니다.
+	//ResizeParentToFit();
 
 }
 

@@ -8,7 +8,6 @@
 #include "afxdialogex.h"
 #include "MFCBreadFactory.h"
 #include "MainFrm.h"
-#include "ChildFrm.h"
 
 #include "MFCBreadFactoryDoc.h"
 #include "MFCBreadFactoryView.h"
