@@ -74,13 +74,13 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 
 	// 2. 왼쪽 창 (영상/그래프)에 CMFCBreadFactoryView 연결 (초기 너비 70%인 1344px 지정)
 	// CSize(너비, 높이)를 지정합니다.
-	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CMFCBreadFactoryView), CSize(1300, 1030), pContext))
+	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CMFCBreadFactoryView), CSize(1440, 1030), pContext))
 	{
 		return FALSE;
 	}
 
 	// 3. 오른쪽 창 (채팅)에 CChatView 연결 (초기 너비 30%인 576px 지정)
-	if (!m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CChatView), CSize(570, 1030), pContext))
+	if (!m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CChatView), CSize(480, 1030), pContext))
 	{
 		return FALSE;
 	}

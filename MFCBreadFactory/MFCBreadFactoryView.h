@@ -4,7 +4,9 @@
 
 #pragma once
 
-#include "MFCBreadFactoryDoc.h" 
+#include "MFCBreadFactoryDoc.h"
+#include "CTab1View.h"
+#include "CTab2View.h"
 
 class CMFCBreadFactoryView : public CFormView
 {
@@ -40,10 +42,18 @@ public:
 #endif
 
 protected:
+	CTab1View* m_pTab1View;
+	CTab2View* m_pTab2View;
 
 // 생성된 메시지 맵 함수
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnTcnSelchangeTab(NMHDR* pNMHDR, LRESULT* pResult);
+protected:
+	CTabCtrl m_Tab;
+public:
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 };
 
 #ifndef _DEBUG  // MFCBreadFactoryView.cpp의 디버그 버전
