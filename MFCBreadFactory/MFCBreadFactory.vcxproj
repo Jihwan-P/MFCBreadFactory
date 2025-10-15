@@ -185,8 +185,8 @@
   <ItemGroup>
     <ClInclude Include="CChatView.h" />
     <ClInclude Include="CStaticSplitterWnd.h" />
-    <ClInclude Include="CTab1View.h" />
-    <ClInclude Include="CTab2View.h" />
+    <ClInclude Include="CTab1Dlg.h" />
+    <ClInclude Include="CTab2Dlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MFCBreadFactory.h" />
@@ -199,8 +199,8 @@
   <ItemGroup>
     <ClCompile Include="CChatView.cpp" />
     <ClCompile Include="CStaticSplitterWnd.cpp" />
-    <ClCompile Include="CTab1View.cpp" />
-    <ClCompile Include="CTab2View.cpp" />
+    <ClCompile Include="CTab1Dlg.cpp" />
+    <ClCompile Include="CTab2Dlg.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MFCBreadFactory.cpp" />
     <ClCompile Include="MFCBreadFactoryDoc.cpp" />

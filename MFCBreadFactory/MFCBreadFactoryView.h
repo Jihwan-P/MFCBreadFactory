@@ -5,8 +5,8 @@
 #pragma once
 
 #include "MFCBreadFactoryDoc.h"
-#include "CTab1View.h"
-#include "CTab2View.h"
+#include "CTab1Dlg.h"
+#include "CTab2Dlg.h"
 
 class CMFCBreadFactoryView : public CFormView
 {
@@ -42,8 +42,8 @@ public:
 #endif
 
 protected:
-	CTab1View* m_pTab1View;
-	CTab2View* m_pTab2View;
+	CTab1Dlg* m_pTab1Dlg;
+	CTab2Dlg* m_pTab2Dlg;
 
 // 생성된 메시지 맵 함수
 protected:

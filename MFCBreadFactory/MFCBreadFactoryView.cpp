@@ -33,8 +33,8 @@ CMFCBreadFactoryView::CMFCBreadFactoryView() noexcept
 	: CFormView(IDD_MFCBREADFACTORY_FORM)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
-	m_pTab1View = nullptr;
-	m_pTab2View = nullptr;
+	m_pTab1Dlg = nullptr;
+	m_pTab2Dlg = nullptr;
 
 }
 
@@ -69,19 +69,19 @@ void CMFCBreadFactoryView::OnInitialUpdate()
 
 	// CCreateContext를 사용하여 뷰 생성
 	CCreateContext context;
-	context.m_pNewViewClass = RUNTIME_CLASS(CTab1View);
+	context.m_pNewViewClass = RUNTIME_CLASS(CTab1Dlg);
 	context.m_pCurrentDoc = GetDocument();
-	m_pTab1View = (CTab1View*)((CFrameWnd*)GetParent())->CreateView(&context, AFX_IDW_PANE_FIRST);
-	m_pTab1View->OnInitialUpdate();
+	m_pTab1Dlg = (CTab1Dlg*)((CFrameWnd*)GetParent())->CreateView(&context, AFX_IDW_PANE_FIRST);
+	m_pTab1Dlg->OnInitialUpdate();
 
-	context.m_pNewViewClass = RUNTIME_CLASS(CTab2View);
+	context.m_pNewViewClass = RUNTIME_CLASS(CTab2Dlg);
 	context.m_pCurrentDoc = GetDocument();
-	m_pTab2View = (CTab2View*)((CFrameWnd*)GetParent())->CreateView(&context, AFX_IDW_PANE_FIRST + 1);
-	m_pTab2View->OnInitialUpdate();
+	m_pTab2Dlg = (CTab2Dlg*)((CFrameWnd*)GetParent())->CreateView(&context, AFX_IDW_PANE_FIRST + 1);
+	m_pTab2Dlg->OnInitialUpdate();
 
 	// 초기 탭 페이지 보이기/숨기기
-	m_pTab1View->ShowWindow(SW_SHOW);
-	m_pTab2View->ShowWindow(SW_HIDE);
+	m_pTab1Dlg->ShowWindow(SW_SHOW);
+	m_pTab2Dlg->ShowWindow(SW_HIDE);
 }
 
 
