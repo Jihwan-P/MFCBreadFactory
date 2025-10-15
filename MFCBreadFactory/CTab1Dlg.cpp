@@ -3,6 +3,7 @@
 
 #include "pch.h"
 #include "MFCBreadFactory.h"
+#include "afxdialogex.h"
 #include "CTab1Dlg.h"
 
 

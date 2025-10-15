@@ -7,6 +7,8 @@
 #include "MFCBreadFactoryDoc.h"
 #include "CTab1Dlg.h"
 #include "CTab2Dlg.h"
+#include "CTab3Dlg.h"
+#include "CTab4Dlg.h"
 
 class CMFCBreadFactoryView : public CFormView
 {
@@ -44,6 +46,8 @@ public:
 protected:
 	CTab1Dlg* m_pTab1Dlg;
 	CTab2Dlg* m_pTab2Dlg;
+	CTab3Dlg* m_pTab3Dlg;
+	CTab4Dlg* m_pTab4Dlg;
 
 // 생성된 메시지 맵 함수
 protected:

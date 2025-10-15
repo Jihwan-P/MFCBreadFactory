@@ -35,6 +35,8 @@ CMFCBreadFactoryView::CMFCBreadFactoryView() noexcept
 	// TODO: 여기에 생성 코드를 추가합니다.
 	m_pTab1Dlg = nullptr;
 	m_pTab2Dlg = nullptr;
+	m_pTab3Dlg = nullptr;
+	m_pTab4Dlg = nullptr;
 
 }
 
@@ -66,6 +68,8 @@ void CMFCBreadFactoryView::OnInitialUpdate()
 	// 탭 컨트롤 초기화
 	m_Tab.InsertItem(0, _T("요약"));
 	m_Tab.InsertItem(1, _T("숙성실1"));
+	m_Tab.InsertItem(2, _T("숙성실2"));
+	m_Tab.InsertItem(3, _T("숙성실3"));
 
 	// 탭으로 보여줄 다이얼로그 객체를 생성합니다.
 	m_pTab1Dlg = new CTab1Dlg;
@@ -74,9 +78,17 @@ void CMFCBreadFactoryView::OnInitialUpdate()
 	m_pTab2Dlg = new CTab2Dlg;
 	m_pTab2Dlg->Create(IDD_TAB2_FORM, &m_Tab);
 
+	m_pTab3Dlg = new CTab3Dlg;
+	m_pTab3Dlg->Create(IDD_TAB3_FORM, &m_Tab);
+
+	m_pTab4Dlg = new CTab4Dlg;
+	m_pTab4Dlg->Create(IDD_TAB4_FORM, &m_Tab);
+
 	// 첫 번째 탭을 초기에 보여줍니다.
 	m_pTab1Dlg->ShowWindow(SW_SHOW);
 	m_pTab2Dlg->ShowWindow(SW_HIDE);
+	m_pTab3Dlg->ShowWindow(SW_HIDE);
+	m_pTab4Dlg->ShowWindow(SW_HIDE);
 
 	// 프로그램 시작 시 뷰의 크기를 올바르게 설정하기 위해 OnSize 함수를 수동으로 한번 호출합니다.
 	CRect rect;
@@ -118,10 +130,26 @@ void CMFCBreadFactoryView::OnTcnSelchangeTab(NMHDR* pNMHDR, LRESULT* pResult)
 	case 0:
 		m_pTab1Dlg->ShowWindow(SW_SHOW);
 		m_pTab2Dlg->ShowWindow(SW_HIDE);
+		m_pTab3Dlg->ShowWindow(SW_HIDE);
+		m_pTab4Dlg->ShowWindow(SW_HIDE);
 		break;
 	case 1:
 		m_pTab1Dlg->ShowWindow(SW_HIDE);
 		m_pTab2Dlg->ShowWindow(SW_SHOW);
+		m_pTab3Dlg->ShowWindow(SW_HIDE);
+		m_pTab4Dlg->ShowWindow(SW_HIDE);
+		break;
+	case 3:
+		m_pTab1Dlg->ShowWindow(SW_HIDE);
+		m_pTab2Dlg->ShowWindow(SW_HIDE);
+		m_pTab3Dlg->ShowWindow(SW_SHOW);
+		m_pTab4Dlg->ShowWindow(SW_HIDE);
+		break;
+	case 4:
+		m_pTab1Dlg->ShowWindow(SW_HIDE);
+		m_pTab2Dlg->ShowWindow(SW_HIDE);
+		m_pTab3Dlg->ShowWindow(SW_HIDE);
+		m_pTab4Dlg->ShowWindow(SW_SHOW);
 		break;
 	}
 	*pResult = 0;

@@ -187,6 +187,8 @@
     <ClInclude Include="CStaticSplitterWnd.h" />
     <ClInclude Include="CTab1Dlg.h" />
     <ClInclude Include="CTab2Dlg.h" />
+    <ClInclude Include="CTab3Dlg.h" />
+    <ClInclude Include="CTab4Dlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MFCBreadFactory.h" />
@@ -201,6 +203,8 @@
     <ClCompile Include="CStaticSplitterWnd.cpp" />
     <ClCompile Include="CTab1Dlg.cpp" />
     <ClCompile Include="CTab2Dlg.cpp" />
+    <ClCompile Include="CTab3Dlg.cpp" />
+    <ClCompile Include="CTab4Dlg.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MFCBreadFactory.cpp" />
     <ClCompile Include="MFCBreadFactoryDoc.cpp" />

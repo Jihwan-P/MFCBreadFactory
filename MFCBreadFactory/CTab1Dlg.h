@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include "afxdialogex.h"
 
 
 // CTab1View 폼 보기
