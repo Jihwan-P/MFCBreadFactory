@@ -139,13 +139,13 @@ void CMFCBreadFactoryView::OnTcnSelchangeTab(NMHDR* pNMHDR, LRESULT* pResult)
 		m_pTab3Dlg->ShowWindow(SW_HIDE);
 		m_pTab4Dlg->ShowWindow(SW_HIDE);
 		break;
-	case 3:
+	case 2:
 		m_pTab1Dlg->ShowWindow(SW_HIDE);
 		m_pTab2Dlg->ShowWindow(SW_HIDE);
 		m_pTab3Dlg->ShowWindow(SW_SHOW);
 		m_pTab4Dlg->ShowWindow(SW_HIDE);
 		break;
-	case 4:
+	case 3:
 		m_pTab1Dlg->ShowWindow(SW_HIDE);
 		m_pTab2Dlg->ShowWindow(SW_HIDE);
 		m_pTab3Dlg->ShowWindow(SW_HIDE);
@@ -176,5 +176,7 @@ void CMFCBreadFactoryView::OnSize(UINT nType, int cx, int cy)
 		// 3. 두 개의 탭 다이얼로그의 크기와 위치를 계산된 영역에 맞게 조절합니다.
 		m_pTab1Dlg->MoveWindow(&rect);
 		m_pTab2Dlg->MoveWindow(&rect);
+		m_pTab3Dlg->MoveWindow(&rect);
+		m_pTab4Dlg->MoveWindow(&rect);
 	}
 }
