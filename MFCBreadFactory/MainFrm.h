@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <afxext.h> // CSplitterWnd 클래스를 사용하기 위해 필요합니다.
+
 class CMainFrame : public CFrameWnd // SDI 구조
 {
 	
