@@ -183,6 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CChatView.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MFCBreadFactory.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CChatView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MFCBreadFactory.cpp" />
     <ClCompile Include="MFCBreadFactoryDoc.cpp" />
