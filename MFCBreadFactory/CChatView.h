@@ -9,7 +9,7 @@ class CChatView : public CFormView
 	DECLARE_DYNCREATE(CChatView)
 
 protected:
-	CChatView();           // 동적 만들기에 사용되는 protected 생성자입니다.
+	CChatView();		// 동적 만들기에 사용되는 protected 생성자입니다.
 	virtual ~CChatView();
 
 public:
@@ -23,10 +23,13 @@ public:
 #endif
 #endif
 
+	// 재정의입니다.
+public:
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs); // 창 생성 전 속성 수정을 위해 선언
+
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
+	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 지원입니다.
+	virtual void OnInitialUpdate(); // 뷰 초기화 로직 구현을 위해 선언 (CChatView.cpp에서 정의)
 
 	DECLARE_MESSAGE_MAP()
 };
-
-

@@ -47,3 +47,11 @@ void CChatView::Dump(CDumpContext& dc) const
 
 
 // CChatView 메시지 처리기
+
+void CChatView::OnInitialUpdate()
+{
+	CFormView::OnInitialUpdate();
+	GetParentFrame()->RecalcLayout();
+	// 크기 조정에 영향을 주지 않도록 합니다.
+	// ResizeParentToFit()
+}
