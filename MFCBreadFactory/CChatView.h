@@ -35,9 +35,12 @@ protected:
 
 public:
 	// 채팅 UI 컨트롤 멤버 변수
+	CStatic m_staticTimeDisplay;
 	CListBox m_listChat;
 	CEdit m_editChat;
 	CButton m_btnSend;
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnBnClickedBtnSend();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnDestroy();
 };
