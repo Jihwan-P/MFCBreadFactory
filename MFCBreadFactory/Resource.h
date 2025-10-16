@@ -35,11 +35,19 @@
 #define IDC_STATIC_GRAPH1               1008
 #define IDC_STATIC_GRAPH2               1009
 #define IDC_STATIC_GRAPH3               1010
-#define IDC_STATIC_GROUP_CAM            1011
-#define IDC_STATIC_GROUP_GRAPH          1012
+//#define IDC_STATIC_GROUP_CAM            1011
+//#define IDC_STATIC_GROUP_GRAPH          1012
 #define IDC_LIST_CHAT                   1013
 #define IDC_EDIT_CHAT                   1014
 #define IDC_BUTTON_SEND                 1015
+#define IDC_STATIC_CLOCK                1016
+#define IDC_STATIC_LABEL_CAM1           1017
+#define IDC_STATIC_LABEL_CAM2           1018
+#define IDC_STATIC_LABEL_CAM3           1019
+#define IDC_STATIC_LABEL_CAM4           1020
+#define IDC_STATIC_LABEL_GRAPH1         1021
+#define IDC_STATIC_LABEL_GRAPH2         1022
+#define IDC_STATIC_LABEL_GRAPH3         1023
 
 
 // Next default values for new objects
@@ -48,7 +56,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        320
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1016
+#define _APS_NEXT_CONTROL_VALUE         1024
 #define _APS_NEXT_SYMED_VALUE           322
 #endif
 #endif

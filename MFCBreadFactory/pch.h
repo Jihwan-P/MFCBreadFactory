@@ -8,6 +8,13 @@
 #define PCH_H
 
 // 여기에 미리 컴파일하려는 헤더 추가
+#include <WinSock2.h>
+
 #include "framework.h"
+
+// WebView2 사용을 위한 헤더 추가
+#include <wrl.h>
+#include <wrl/implements.h>
+#include "WebView2.h"
 
 #endif //PCH_H

@@ -19,6 +19,17 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
+	virtual BOOL OnInitDialog();
 
 	DECLARE_MESSAGE_MAP()
+
+private:
+	// 4개의 WebView2 컨트롤러와 뷰에 대한 ComPtr 멤버 변수 선언
+	Microsoft::WRL::ComPtr<ICoreWebView2Controller> m_controllers[4];
+	Microsoft::WRL::ComPtr<ICoreWebView2> m_webViews[4];
+
+	CFont m_fontLabels;
+
+	// WebView 컨트롤을 생성하고 초기화하는 헬퍼 함수
+	void CreateWebViewCtrl(int nID, int index, const CString& url);
 };

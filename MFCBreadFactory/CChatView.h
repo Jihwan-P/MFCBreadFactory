@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 
-
 // CChatView 폼 보기
 
 class CChatView : public CFormView
@@ -35,9 +34,14 @@ protected:
 
 public:
 	// 채팅 UI 컨트롤 멤버 변수
+	CStatic m_staticClock;
 	CListBox m_listChat;
+	CFont m_fontChat;
 	CEdit m_editChat;
 	CButton m_btnSend;
+
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnBnClickedBtnSend();
+	afx_msg void OnTimer(UINT_PTR nIDEvent); // 타이머 핸들러
+	afx_msg void OnDestroy();
 };
