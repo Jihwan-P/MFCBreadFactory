@@ -32,4 +32,12 @@ protected:
 	virtual void OnInitialUpdate(); // 뷰 초기화 로직 구현을 위해 선언 (CChatView.cpp에서 정의)
 
 	DECLARE_MESSAGE_MAP()
+
+public:
+	// 채팅 UI 컨트롤 멤버 변수
+	CListBox m_listChat;
+	CEdit m_editChat;
+	CButton m_btnSend;
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnBnClickedBtnSend();
 };
