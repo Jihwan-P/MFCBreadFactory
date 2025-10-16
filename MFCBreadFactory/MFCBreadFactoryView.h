@@ -43,7 +43,7 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
-protected:
+public:
 	CTab1Dlg* m_pTab1Dlg;
 	CTab2Dlg* m_pTab2Dlg;
 	CTab3Dlg* m_pTab3Dlg;

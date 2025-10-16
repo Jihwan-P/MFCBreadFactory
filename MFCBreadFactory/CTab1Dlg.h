@@ -1,35 +1,44 @@
 ﻿#pragma once
 #include "afxdialogex.h"
 
-
 // CTab1View 폼 보기
 
 class CTab1Dlg : public CDialog
 {
-	DECLARE_DYNAMIC(CTab1Dlg)
+    DECLARE_DYNAMIC(CTab1Dlg)
 
 public:
-	CTab1Dlg(CWnd* pParent = nullptr);   // 표준 생성자입니다.
-	virtual ~CTab1Dlg();
+    CTab1Dlg(CWnd* pParent = nullptr);   // 표준 생성자입니다.
+    virtual ~CTab1Dlg();
 
-	// 대화 상자 데이터입니다.
+    // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_TAB1_FORM };
+    enum { IDD = IDD_TAB1_FORM };
 #endif
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
-	virtual BOOL OnInitDialog();
+    virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
+    virtual BOOL OnInitDialog();
 
-	DECLARE_MESSAGE_MAP()
+    DECLARE_MESSAGE_MAP()
+
+public:
+    void UpdateSummary(); // 요약 정보 갱신 함수
+    afx_msg void OnTimer(UINT_PTR nIDEvent);
 
 private:
-	// 4개의 WebView2 컨트롤러와 뷰에 대한 ComPtr 멤버 변수 선언
-	Microsoft::WRL::ComPtr<ICoreWebView2Controller> m_controllers[4];
-	Microsoft::WRL::ComPtr<ICoreWebView2> m_webViews[4];
+    // 숙성고 1 정보 컨트롤
+    CStatic m_stcRoom1Method;
+    CStatic m_stcRoom1Temp;
+    CStatic m_stcRoom1Humidity;
 
-	CFont m_fontLabels;
+    // 숙성고 2 정보 컨트롤
+    CStatic m_stcRoom2Method;
+    CStatic m_stcRoom2Temp;
+    CStatic m_stcRoom2Humidity;
 
-	// WebView 컨트롤을 생성하고 초기화하는 헬퍼 함수
-	void CreateWebViewCtrl(int nID, int index, const CString& url);
+    // 숙성고 3 정보 컨트롤
+    CStatic m_stcRoom3Method;
+    CStatic m_stcRoom3Temp;
+    CStatic m_stcRoom3Humidity;
 };

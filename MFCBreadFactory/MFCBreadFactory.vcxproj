@@ -185,6 +185,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CChartCtrl.h" />
     <ClInclude Include="CChatView.h" />
     <ClInclude Include="CStaticSplitterWnd.h" />
     <ClInclude Include="CTab1Dlg.h" />
@@ -201,6 +202,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CChartCtrl.cpp" />
     <ClCompile Include="CChatView.cpp" />
     <ClCompile Include="CStaticSplitterWnd.cpp" />
     <ClCompile Include="CTab1Dlg.cpp" />

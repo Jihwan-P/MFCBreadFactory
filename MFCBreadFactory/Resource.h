@@ -35,8 +35,8 @@
 #define IDC_STATIC_GRAPH1               1008
 #define IDC_STATIC_GRAPH2               1009
 #define IDC_STATIC_GRAPH3               1010
-//#define IDC_STATIC_GROUP_CAM            1011
-//#define IDC_STATIC_GROUP_GRAPH          1012
+#define IDC_STATIC_GROUP_CAM            1011
+#define IDC_STATIC_GROUP_GRAPH          1012
 #define IDC_LIST_CHAT                   1013
 #define IDC_EDIT_CHAT                   1014
 #define IDC_BUTTON_SEND                 1015
@@ -48,7 +48,29 @@
 #define IDC_STATIC_LABEL_GRAPH1         1021
 #define IDC_STATIC_LABEL_GRAPH2         1022
 #define IDC_STATIC_LABEL_GRAPH3         1023
-
+#define IDC_STATIC_CHART                1024
+#define IDC_STATIC_CURRENT_TEMP         1025
+#define IDC_STATIC_CURRENT_HUMIDITY     1026
+#define IDC_EDIT_MIN_TEMP               1027
+#define IDC_EDIT_MAX_TEMP               1028
+#define IDC_EDIT_MIN_HUMIDITY           1029
+#define IDC_EDIT_MAX_HUMIDITY           1030
+#define IDC_COMBO_METHOD                1031
+#define IDC_BUTTON_APPLY                1032
+#define IDC_STATIC_INFO_GROUP           1033
+#define IDC_STATIC_SETTINGS_GROUP       1034
+#define IDC_STATIC_ROOM1_METHOD         1035
+#define IDC_STATIC_ROOM1_TEMP           1036
+#define IDC_STATIC_ROOM1_HUMIDITY       1037
+#define IDC_STATIC_CHART1               1038
+#define IDC_STATIC_ROOM2_METHOD         1039
+#define IDC_STATIC_ROOM2_TEMP           1040
+#define IDC_STATIC_ROOM2_HUMIDITY       1041
+#define IDC_STATIC_CHART2               1042
+#define IDC_STATIC_ROOM3_METHOD         1043
+#define IDC_STATIC_ROOM3_TEMP           1044
+#define IDC_STATIC_ROOM3_HUMIDITY       1045
+#define IDC_STATIC_CHART3               1046
 
 // Next default values for new objects
 // 
@@ -56,7 +78,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        320
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1024
+#define _APS_NEXT_CONTROL_VALUE         1047
 #define _APS_NEXT_SYMED_VALUE           322
 #endif
 #endif
