@@ -5,8 +5,11 @@
 #include "pch.h"
 #include "framework.h"
 #include "MFCBreadFactory.h"
-
 #include "MainFrm.h"
+
+// SplitterWnd에 연결할 두 뷰의 헤더를 포함해야 합니다.
+#include "MFCBreadFactoryView.h" // 기존 좌측 뷰 (영상/그래프)
+#include "CChatView.h"           // 새로 만든 우측 뷰 (채팅)
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -39,9 +42,50 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	// TODO: CREATESTRUCT cs를 수정하여 여기에서
 	//  Window 클래스 또는 스타일을 수정합니다.
 
-	cs.style = WS_OVERLAPPED | WS_CAPTION | FWS_ADDTOTITLE
-		 | WS_THICKFRAME;
+	// 창 크기 고정 (1920x1080)
+	cs.cx = 1920;
+	cs.cy = 1030;
 
+	// 창 위치 지정 (0,0)
+	cs.x = 0;
+	cs.y = 5;
+
+	// 창 스타일 지정 (타이틀바, 최대화/최소화 버튼, 시스템 메뉴-닫기 포함)
+	cs.style =
+		FWS_ADDTOTITLE |
+		WS_OVERLAPPED |
+		WS_CAPTION |
+		WS_MAXIMIZEBOX |
+		WS_MINIMIZEBOX |
+		WS_SYSMENU |
+		WS_MAXIMIZE;
+
+	return TRUE;
+}
+
+// SDI 주 창의 클라이언트 영역에 분할창(SplitterWnd)을 생성합니다.
+BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
+{
+	// 1. Splitter Window를 생성합니다. (1행 2열: 세로 분할)
+	if (!m_wndSplitter.CreateStatic(this, 1, 2))
+	{
+		return FALSE;
+	}
+
+	// 2. 왼쪽 창 (영상/그래프)에 CMFCBreadFactoryView 연결 (초기 너비 70%인 1344px 지정)
+	// CSize(너비, 높이)를 지정합니다.
+	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CMFCBreadFactoryView), CSize(1280, 1030), pContext))
+	{
+		return FALSE;
+	}
+
+	// 3. 오른쪽 창 (채팅)에 CChatView 연결 (초기 너비 30%인 576px 지정)
+	if (!m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CChatView), CSize(640, 1030), pContext))
+	{
+		return FALSE;
+	}
+
+	// 주 프레임의 클라이언트 영역을 m_wndSplitter가 관리하도록 합니다.
 	return TRUE;
 }
 

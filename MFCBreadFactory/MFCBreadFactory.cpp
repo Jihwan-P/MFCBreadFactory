@@ -92,8 +92,10 @@ BOOL CMFCBreadFactoryApp::InitInstance()
 	if (!ProcessShellCommand(cmdInfo))
 		return FALSE;
 
-	// 창 하나만 초기화되었으므로 이를 표시하고 업데이트합니다.
-	m_pMainWnd->ShowWindow(SW_SHOW);
+	// MDI는 일반적으로 자식 창을 생성하지 않고 메인 창만 표시합니다.
+	//m_pMainWnd->ShowWindow(SW_SHOW);
+	// 창 크기를 최대화 상태로 실행
+	m_pMainWnd->ShowWindow(SW_SHOWMAXIMIZED);
 	m_pMainWnd->UpdateWindow();
 	return TRUE;
 }
