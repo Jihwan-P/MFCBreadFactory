@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-
-
 // CChatView 폼 보기
 
 class CChatView : public CFormView
@@ -9,7 +7,7 @@ class CChatView : public CFormView
 	DECLARE_DYNCREATE(CChatView)
 
 protected:
-	CChatView();		// 동적 만들기에 사용되는 protected 생성자입니다.
+	CChatView();
 	virtual ~CChatView();
 
 public:
@@ -29,7 +27,7 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 지원입니다.
-	virtual void OnInitialUpdate(); // 뷰 초기화 로직 구현을 위해 선언 (CChatView.cpp에서 정의)
+	virtual void OnInitialUpdate();
 
 	DECLARE_MESSAGE_MAP()
 
