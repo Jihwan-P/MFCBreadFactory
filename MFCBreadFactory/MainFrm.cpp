@@ -7,91 +7,106 @@
 #include "MFCBreadFactory.h"
 #include "MainFrm.h"
 
-// SplitterWnd에 연결할 두 뷰의 헤더를 포함해야 합니다.
-#include "MFCBreadFactoryView.h" // 기존 좌측 뷰 (영상/그래프)
-#include "CChatView.h"           // 새로 만든 우측 뷰 (채팅)
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
-// CMainFrame
+// 타이머 ID 및 간격(ms)
+#define DATA_UPDATE_TIMER_ID 1
+#define DATA_UPDATE_INTERVAL 2000 // 2초
 
 IMPLEMENT_DYNCREATE(CMainFrame, CFrameWnd)
 
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
-	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
-	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnUpdateApplicationLook)
+	ON_WM_CREATE()
+	ON_NOTIFY(TCN_SELCHANGE, AFX_IDC_TAB_CONTROL, &CMainFrame::OnSelchangeTabs)
+	ON_WM_TIMER() // 타이머 메시지 맵 추가
 END_MESSAGE_MAP()
 
-// CMainFrame 생성/소멸
-
-CMainFrame::CMainFrame() noexcept
+static UINT indicators[] =
 {
-	// TODO: 여기에 멤버 초기화 코드를 추가합니다.
+	ID_SEPARATOR,           // status line indicator
+	ID_INDICATOR_CAPS,
+	ID_INDICATOR_NUM,
+	ID_INDICATOR_SCRL,
+};
+
+CMainFrame::CMainFrame() noexcept : m_pTab1Dlg(nullptr), m_pTab2Dlg(nullptr), m_pTab3Dlg(nullptr), m_pTab4Dlg(nullptr), m_pActiveTab(nullptr)
+{
 }
 
 CMainFrame::~CMainFrame()
 {
+	// 동적 할당된 다이얼로그 해제
+	if (m_pTab1Dlg) delete m_pTab1Dlg;
+	if (m_pTab2Dlg) delete m_pTab2Dlg;
+	if (m_pTab3Dlg) delete m_pTab3Dlg;
+	if (m_pTab4Dlg) delete m_pTab4Dlg;
+}
+
+int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CFrameWnd::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
+		!m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
+	{
+		TRACE0("Failed to create toolbar\n");
+		return -1;
+	}
+
+	if (!m_wndStatusBar.Create(this))
+	{
+		TRACE0("Failed to create status bar\n");
+		return -1;
+	}
+	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators) / sizeof(UINT));
+
+	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
+	EnableDocking(CBRS_ALIGN_ANY);
+	DockControlBar(&m_wndToolBar);
+
+	// 탭 컨트롤 생성
+	CRect rect;
+	GetClientRect(&rect);
+	m_wndTabs.Create(TCS_TABS | WS_CHILD | WS_VISIBLE, rect, this, AFX_IDC_TAB_CONTROL);
+	m_wndTabs.InsertItem(0, _T("요약"));
+	m_wndTabs.InsertItem(1, _T("숙성고 1"));
+	m_wndTabs.InsertItem(2, _T("숙성고 2"));
+	m_wndTabs.InsertItem(3, _T("숙성고 3"));
+
+	// 탭 다이얼로그 생성
+	m_pTab1Dlg = new CTab1Dlg();
+	m_pTab1Dlg->Create(IDD_TAB1_DLG, &m_wndTabs);
+	m_pTab2Dlg = new CTab2Dlg(0); // 숙성고 인덱스 0
+	m_pTab2Dlg->Create(IDD_TAB2_DLG, &m_wndTabs);
+	m_pTab3Dlg = new CTab3Dlg(1); // 숙성고 인덱스 1
+	m_pTab3Dlg->Create(IDD_TAB3_DLG, &m_wndTabs);
+	m_pTab4Dlg = new CTab4Dlg(2); // 숙성고 인덱스 2
+	m_pTab4Dlg->Create(IDD_TAB4_DLG, &m_wndTabs);
+
+	// 초기 탭 설정
+	m_pActiveTab = m_pTab1Dlg;
+	m_pTab1Dlg->ShowWindow(SW_SHOW);
+
+	OnSelchangeTabs(NULL, NULL); // 탭 위치 조정
+
+	// 타이머 설정
+	SetTimer(DATA_UPDATE_TIMER_ID, DATA_UPDATE_INTERVAL, NULL);
+
+	return 0;
 }
 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
-	if( !CFrameWnd::PreCreateWindow(cs) )
+	if (!CFrameWnd::PreCreateWindow(cs))
 		return FALSE;
-	// TODO: CREATESTRUCT cs를 수정하여 여기에서
-	//  Window 클래스 또는 스타일을 수정합니다.
-
-	// 창 크기 고정 (1920x1080)
-	cs.cx = 1920;
-	cs.cy = 1030;
-
-	// 창 위치 지정 (0,0)
-	cs.x = 0;
-	cs.y = 5;
-
-	// 창 스타일 지정 (타이틀바, 최대화/최소화 버튼, 시스템 메뉴-닫기 포함)
-	cs.style =
-		FWS_ADDTOTITLE |
-		WS_OVERLAPPED |
-		WS_CAPTION |
-		WS_MAXIMIZEBOX |
-		WS_MINIMIZEBOX |
-		WS_SYSMENU |
-		WS_MAXIMIZE;
-
+	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
+	cs.lpszClass = AfxRegisterWndClass(0);
 	return TRUE;
 }
 
-// SDI 주 창의 클라이언트 영역에 분할창(SplitterWnd)을 생성합니다.
-BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
-{
-	// 1. Splitter Window를 생성합니다. (1행 2열: 세로 분할)
-	if (!m_wndSplitter.CreateStatic(this, 1, 2))
-	{
-		return FALSE;
-	}
-
-	// 2. 왼쪽 창 (영상/그래프)에 CMFCBreadFactoryView 연결 (초기 너비 70%인 1344px 지정)
-	// CSize(너비, 높이)를 지정합니다.
-	if (!m_wndSplitter.CreateView(0, 0, RUNTIME_CLASS(CMFCBreadFactoryView), CSize(1280, 1030), pContext))
-	{
-		return FALSE;
-	}
-
-	// 3. 오른쪽 창 (채팅)에 CChatView 연결 (초기 너비 30%인 576px 지정)
-	if (!m_wndSplitter.CreateView(0, 1, RUNTIME_CLASS(CChatView), CSize(640, 1030), pContext))
-	{
-		return FALSE;
-	}
-
-	// 주 프레임의 클라이언트 영역을 m_wndSplitter가 관리하도록 합니다.
-	return TRUE;
-}
-
-// CMainFrame 진단
-
-#ifdef _DEBUG
 void CMainFrame::AssertValid() const
 {
 	CFrameWnd::AssertValid();
@@ -101,82 +116,79 @@ void CMainFrame::Dump(CDumpContext& dc) const
 {
 	CFrameWnd::Dump(dc);
 }
-#endif //_DEBUG
 
-
-// CMainFrame 메시지 처리기
-
-void CMainFrame::OnApplicationLook(UINT id)
+void CMainFrame::OnSelchangeTabs(NMHDR* pNMHDR, LRESULT* pResult)
 {
-	CWaitCursor wait;
+	if (m_pActiveTab != NULL)
+		m_pActiveTab->ShowWindow(SW_HIDE);
 
-	theApp.m_nAppLook = id;
-
-	switch (theApp.m_nAppLook)
+	int nIndex = m_wndTabs.GetCurSel();
+	switch (nIndex)
 	{
-	case ID_VIEW_APPLOOK_WIN_2000:
-		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManager));
+	case 0:
+		m_pActiveTab = m_pTab1Dlg;
 		break;
-
-	case ID_VIEW_APPLOOK_OFF_XP:
-		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOfficeXP));
+	case 1:
+		m_pActiveTab = m_pTab2Dlg;
 		break;
-
-	case ID_VIEW_APPLOOK_WIN_XP:
-		CMFCVisualManagerWindows::m_b3DTabsXPTheme = TRUE;
-		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerWindows));
+	case 2:
+		m_pActiveTab = m_pTab3Dlg;
 		break;
-
-	case ID_VIEW_APPLOOK_OFF_2003:
-		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOffice2003));
-		CDockingManager::SetDockingMode(DT_SMART);
+	case 3:
+		m_pActiveTab = m_pTab4Dlg;
 		break;
-
-	case ID_VIEW_APPLOOK_VS_2005:
-		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerVS2005));
-		CDockingManager::SetDockingMode(DT_SMART);
-		break;
-
-	case ID_VIEW_APPLOOK_VS_2008:
-		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerVS2008));
-		CDockingManager::SetDockingMode(DT_SMART);
-		break;
-
-	case ID_VIEW_APPLOOK_WINDOWS_7:
-		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerWindows7));
-		CDockingManager::SetDockingMode(DT_SMART);
-		break;
-
-	default:
-		switch (theApp.m_nAppLook)
-		{
-		case ID_VIEW_APPLOOK_OFF_2007_BLUE:
-			CMFCVisualManagerOffice2007::SetStyle(CMFCVisualManagerOffice2007::Office2007_LunaBlue);
-			break;
-
-		case ID_VIEW_APPLOOK_OFF_2007_BLACK:
-			CMFCVisualManagerOffice2007::SetStyle(CMFCVisualManagerOffice2007::Office2007_ObsidianBlack);
-			break;
-
-		case ID_VIEW_APPLOOK_OFF_2007_SILVER:
-			CMFCVisualManagerOffice2007::SetStyle(CMFCVisualManagerOffice2007::Office2007_Silver);
-			break;
-
-		case ID_VIEW_APPLOOK_OFF_2007_AQUA:
-			CMFCVisualManagerOffice2007::SetStyle(CMFCVisualManagerOffice2007::Office2007_Aqua);
-			break;
-		}
-
-		CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOffice2007));
-		CDockingManager::SetDockingMode(DT_SMART);
 	}
 
-	RedrawWindow(nullptr, nullptr, RDW_ALLCHILDREN | RDW_INVALIDATE | RDW_UPDATENOW | RDW_FRAME | RDW_ERASE);
+	if (m_pActiveTab)
+	{
+		CRect rect;
+		m_wndTabs.GetClientRect(rect);
+		rect.top += 22; // 탭 높이만큼 내림
+		m_pActiveTab->MoveWindow(&rect);
+		m_pActiveTab->ShowWindow(SW_SHOW);
+	}
 
+	if (pResult)
+		*pResult = 0;
 }
 
-void CMainFrame::OnUpdateApplicationLook(CCmdUI* pCmdUI)
+// 데이터 업데이트 함수
+void CMainFrame::UpdateChamberData(int chamberIndex, const AgingChamberData& data)
 {
-	pCmdUI->SetRadio(theApp.m_nAppLook == pCmdUI->m_nID);
+	if (chamberIndex >= 0 && chamberIndex < 3)
+	{
+		m_ChamberData[chamberIndex] = data;
+	}
 }
 
+AgingChamberData CMainFrame::GetChamberData(int chamberIndex)
+{
+	if (chamberIndex >= 0 && chamberIndex < 3)
+	{
+		return m_ChamberData[chamberIndex];
+	}
+	return AgingChamberData();
+}
+
+// 타이머 핸들러
+void CMainFrame::OnTimer(UINT_PTR nIDEvent)
+{
+	if (nIDEvent == DATA_UPDATE_TIMER_ID)
+	{
+		// 임시로 현재 온습도 데이터 시뮬레이션
+		for (int i = 0; i < 3; ++i)
+		{
+			// 설정값 주변에서 랜덤하게 변동
+			m_ChamberData[i].currentTemp = m_ChamberData[i].setTemp + (rand() % 21 - 10) / 10.0; // ±1.0
+			m_ChamberData[i].currentHumid = m_ChamberData[i].setHumid + (rand() % 41 - 20) / 10.0; // ±2.0
+		}
+
+		// 각 탭 다이얼로그에 데이터 업데이트 요청
+		m_pTab1Dlg->UpdateData(m_ChamberData);
+		m_pTab2Dlg->UpdateCurrentData(m_ChamberData[0]);
+		m_pTab3Dlg->UpdateCurrentData(m_ChamberData[1]);
+		m_pTab4Dlg->UpdateCurrentData(m_ChamberData[2]);
+	}
+
+	CFrameWnd::OnTimer(nIDEvent);
+}
