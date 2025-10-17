@@ -1,8 +1,4 @@
-﻿
-// MainFrm.cpp: CMainFrame 클래스의 구현
-//
-
-#include "pch.h"
+﻿#include "pch.h"
 #include "framework.h"
 #include "MFCBreadFactory.h"
 #include "MainFrm.h"
@@ -90,7 +86,15 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pActiveTab = m_pTab1Dlg;
 	m_pTab1Dlg->ShowWindow(SW_SHOW);
 
-	OnSelchangeTabs(NULL, NULL); // 탭 위치 조정
+	// 탭 위치 조정
+	CRect tabRect;
+	m_wndTabs.GetClientRect(tabRect);
+	tabRect.top += 22;
+	m_pTab1Dlg->MoveWindow(&tabRect);
+	m_pTab2Dlg->MoveWindow(&tabRect);
+	m_pTab3Dlg->MoveWindow(&tabRect);
+	m_pTab4Dlg->MoveWindow(&tabRect);
+
 
 	// 타이머 설정
 	SetTimer(DATA_UPDATE_TIMER_ID, DATA_UPDATE_INTERVAL, NULL);
@@ -141,10 +145,6 @@ void CMainFrame::OnSelchangeTabs(NMHDR* pNMHDR, LRESULT* pResult)
 
 	if (m_pActiveTab)
 	{
-		CRect rect;
-		m_wndTabs.GetClientRect(rect);
-		rect.top += 22; // 탭 높이만큼 내림
-		m_pActiveTab->MoveWindow(&rect);
 		m_pActiveTab->ShowWindow(SW_SHOW);
 	}
 
@@ -184,10 +184,10 @@ void CMainFrame::OnTimer(UINT_PTR nIDEvent)
 		}
 
 		// 각 탭 다이얼로그에 데이터 업데이트 요청
-		m_pTab1Dlg->UpdateData(m_ChamberData);
-		m_pTab2Dlg->UpdateCurrentData(m_ChamberData[0]);
-		m_pTab3Dlg->UpdateCurrentData(m_ChamberData[1]);
-		m_pTab4Dlg->UpdateCurrentData(m_ChamberData[2]);
+		if (m_pTab1Dlg && m_pTab1Dlg->GetSafeHwnd()) m_pTab1Dlg->UpdateData(m_ChamberData);
+		if (m_pTab2Dlg && m_pTab2Dlg->GetSafeHwnd()) m_pTab2Dlg->UpdateCurrentData(m_ChamberData[0]);
+		if (m_pTab3Dlg && m_pTab3Dlg->GetSafeHwnd()) m_pTab3Dlg->UpdateCurrentData(m_ChamberData[1]);
+		if (m_pTab4Dlg && m_pTab4Dlg->GetSafeHwnd()) m_pTab4Dlg->UpdateCurrentData(m_ChamberData[2]);
 	}
 
 	CFrameWnd::OnTimer(nIDEvent);

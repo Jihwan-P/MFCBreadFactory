@@ -2,33 +2,29 @@
 #include "afxdialogex.h"
 #include "MainFrm.h"
 
-
-// CTab3Dlg 대화 상자
-
 class CTab3Dlg : public CDialog
 {
 	DECLARE_DYNAMIC(CTab3Dlg)
 
 public:
-	CTab3Dlg(int chamberIndex, CWnd* pParent = nullptr);   // 생성자에 인덱스 추가
+	CTab3Dlg(int chamberIndex = 0, CWnd* pParent = nullptr); // 생성자 수정
 	virtual ~CTab3Dlg();
 
 	void UpdateCurrentData(const AgingChamberData& data);
 
-	// 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_TAB3_DLG };
+	enum { IDD = IDD_TAB2_DLG };
 #endif
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원
+	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
 
 	DECLARE_MESSAGE_MAP()
 
 private:
-	int m_nChamberIndex; // 숙성고 인덱스
-	void UpdateMainFrameData(); // 메인 프레임에 데이터 전송
+	int m_nChamberIndex;
+	void UpdateMainFrameData();
 
 public:
 	afx_msg void OnEnChangeEditTempSet();

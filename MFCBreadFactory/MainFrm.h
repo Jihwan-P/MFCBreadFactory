@@ -1,10 +1,4 @@
-﻿
-// MainFrm.h: CMainFrame 클래스의 인터페이스
-//
-
-#pragma once
-#include "CStaticSplitterWnd.h"
-#include <afxext.h> // CSplitterWnd 클래스를 사용하기 위해 필요합니다.
+﻿#pragma once
 #include "CTab1Dlg.h"
 #include "CTab2Dlg.h"
 #include "CTab3Dlg.h"

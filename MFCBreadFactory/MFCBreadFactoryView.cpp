@@ -73,16 +73,16 @@ void CMFCBreadFactoryView::OnInitialUpdate()
 
 	// 탭으로 보여줄 다이얼로그 객체를 생성합니다.
 	m_pTab1Dlg = new CTab1Dlg;
-	m_pTab1Dlg->Create(IDD_TAB1_FORM, &m_Tab);
+	m_pTab1Dlg->Create(IDD_TAB1_DLG, &m_Tab);
 
 	m_pTab2Dlg = new CTab2Dlg;
-	m_pTab2Dlg->Create(IDD_TAB2_FORM, &m_Tab);
+	m_pTab2Dlg->Create(IDD_TAB2_DLG, &m_Tab);
 
 	m_pTab3Dlg = new CTab3Dlg;
-	m_pTab3Dlg->Create(IDD_TAB3_FORM, &m_Tab);
+	m_pTab3Dlg->Create(IDD_TAB3_DLG, &m_Tab);
 
 	m_pTab4Dlg = new CTab4Dlg;
-	m_pTab4Dlg->Create(IDD_TAB4_FORM, &m_Tab);
+	m_pTab4Dlg->Create(IDD_TAB4_DLG, &m_Tab);
 
 	// 첫 번째 탭을 초기에 보여줍니다.
 	m_pTab1Dlg->ShowWindow(SW_SHOW);
